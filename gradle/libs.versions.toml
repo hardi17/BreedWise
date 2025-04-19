@@ -16,6 +16,7 @@ mockitoCore = "5.3.1"
 hiltAndroid = "2.48"
 hiltCommon = "1.2.0"
 lifecycleRuntimeKtx = "2.8.7"
+retrofit = "2.9.0"
 
 
 [libraries]
@@ -35,6 +36,8 @@ mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockitoCore
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

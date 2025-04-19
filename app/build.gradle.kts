@@ -51,6 +51,10 @@ dependencies {
     implementation(libs.androidx.hilt.common)
     kapt(libs.hilt.compiler)
 
+    //retrofit
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
     //unit testing
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
