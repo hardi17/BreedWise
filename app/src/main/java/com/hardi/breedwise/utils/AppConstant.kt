@@ -1,6 +1,5 @@
 package com.hardi.breedwise.utils
 
-import com.hardi.breedwise.di.BASE_URL
 
 object AppConstant {
 
