@@ -13,9 +13,10 @@ class AllBreedRepository @Inject constructor(private val apiService: ApiService)
     fun getAllBreed(): Flow<List<DogBreeds>> {
         return flow {
             val response = apiService.fetchAllBreed()
-            val allBreedList = response.message.map { (breed, subBreeds) ->
-                DogBreeds(breed, subBreeds)
-            }
+            val allBreedList =
+                response.message.filterValues { it.isNotEmpty() }.map { (breed, subBreeds) ->
+                    DogBreeds(breed, subBreeds)
+                }
             emit(allBreedList)
         }
     }
