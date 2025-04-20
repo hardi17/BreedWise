@@ -1,8 +1,11 @@
 package com.hardi.breedwise.ui.allbreed
 
+import app.cash.turbine.test
+import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.data.repository.AllBreedRepository
 import com.hardi.breedwise.utils.DispatcherProvider
 import com.hardi.breedwise.utils.TestDispatcherProvider
+import com.hardi.breedwise.utils.UIState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
@@ -26,8 +29,6 @@ class AllBreedViewmodelTest {
 
     private lateinit var dispatcher: DispatcherProvider
 
-    private lateinit var viewModel: AllBreedViewmodel
-
     @Before
     fun setUp() {
         dispatcher = TestDispatcherProvider()
@@ -36,15 +37,19 @@ class AllBreedViewmodelTest {
     @Test
     fun get_all_breed_succeefully_test() {
         runTest {
-            val result = listOf("a", "b", "c")
+            val dogBreeds = DogBreeds("breed", listOf("subBreed1", "subBreed2"))
+            val result = listOf(dogBreeds)
 
             doReturn(flowOf(result)).`when`(repository).getAllBreed()
 
-            viewModel = AllBreedViewmodel(repository, dispatcher)
+            val viewModel = AllBreedViewmodel(repository, dispatcher)
 
             viewModel.loadAllBreed()
 
-            assertEquals(result, viewModel.breeds.value)
+            viewModel.uiState.test {
+                assertEquals(UIState.Success(result), awaitItem())
+                cancelAndIgnoreRemainingEvents()
+            }
 
             verify(repository, times(1)).getAllBreed()
         }
@@ -53,16 +58,20 @@ class AllBreedViewmodelTest {
     @Test
     fun get_all_breed_failed_test() {
         runTest {
-            val error = ""
-            doReturn(flow<String> {
-                error
+            val error = IllegalAccessException("Something went wrong")
+            doReturn(flow<List<DogBreeds>>{
+                throw error
             }).`when`(repository).getAllBreed()
 
-            viewModel = AllBreedViewmodel(repository, dispatcher)
+            val viewModel = AllBreedViewmodel(repository, dispatcher)
 
-            viewModel.loadAllBreed()
+             viewModel.loadAllBreed()
 
-            assertEquals(error, viewModel.error.value)
+            viewModel.uiState.test {
+                assertEquals(UIState.Error(error.toString()), awaitItem())
+                cancelAndIgnoreRemainingEvents()
+            }
+
 
             verify(repository, times(1)).getAllBreed()
         }
