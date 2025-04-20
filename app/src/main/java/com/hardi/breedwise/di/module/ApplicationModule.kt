@@ -3,6 +3,8 @@ package com.hardi.breedwise.di.module
 import com.hardi.breedwise.data.api.ApiService
 import com.hardi.breedwise.di.BaseUrl
 import com.hardi.breedwise.utils.AppConstant.BASE_URL
+import com.hardi.breedwise.utils.DefaultDispatcherProvider
+import com.hardi.breedwise.utils.DispatcherProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +33,10 @@ class ApplicationModule {
             .build()
             .create(ApiService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideDispatcher(): DispatcherProvider = DefaultDispatcherProvider()
 
     @Provides
     @Singleton
