@@ -1,6 +1,7 @@
 package com.hardi.breedwise.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hardi.breedwise.R
 import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.databinding.ActivityMainBinding
@@ -23,7 +25,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener{
 
     private lateinit var allBreedViewmodel: AllBreedViewmodel
 
@@ -46,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         setUpView()
         setUpViewModel()
         setUpResponse()
+
+        binding.refreshLayout.setOnRefreshListener(this)
     }
 
     private fun setUpView() {
@@ -97,6 +101,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpViewModel() {
         allBreedViewmodel = ViewModelProvider(this)[AllBreedViewmodel::class.java]
+        allBreedViewmodel.loadAllBreed()
+    }
+
+    override fun onRefresh() {
+        binding.refreshLayout.isRefreshing = false
         allBreedViewmodel.loadAllBreed()
     }
 

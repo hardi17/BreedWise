@@ -1,13 +1,17 @@
 package com.hardi.breedwise.di.module
 
+import android.content.Context
 import com.hardi.breedwise.data.api.ApiService
 import com.hardi.breedwise.di.BaseUrl
 import com.hardi.breedwise.utils.AppConstant.BASE_URL
 import com.hardi.breedwise.utils.DefaultDispatcherProvider
 import com.hardi.breedwise.utils.DispatcherProvider
+import com.hardi.breedwise.utils.InternetCheck.InternetConnected
+import com.hardi.breedwise.utils.InternetCheck.NetworkHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -42,4 +46,9 @@ class ApplicationModule {
     @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
 
+    @Provides
+    @Singleton
+    fun provideNetworkHelper(@ApplicationContext context: Context) : NetworkHelper{
+        return InternetConnected(context)
+    }
 }

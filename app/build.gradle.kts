@@ -49,6 +49,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    //refreshlayout
+    implementation(libs.swiperefreshlayout)
+
     //hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.common)

@@ -18,7 +18,6 @@ class AllBreedAdapter(
         fun bind(dogBreeds: DogBreeds) {
             binding.tvBreedName.text = "${dogBreeds.breed.uppercase()} :"
             binding.tvSubBreedName.text = dogBreeds.subBreedList?.joinToString(", ")
-
         }
 
     }

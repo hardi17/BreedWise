@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.data.repository.AllBreedRepository
 import com.hardi.breedwise.utils.DispatcherProvider
+import com.hardi.breedwise.utils.InternetCheck.NetworkHelper
 import com.hardi.breedwise.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AllBreedViewmodel @Inject constructor(
     private val repository: AllBreedRepository,
-    private val dispatcher: DispatcherProvider
+    private val dispatcher: DispatcherProvider,
+    private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
 
@@ -26,15 +28,20 @@ class AllBreedViewmodel @Inject constructor(
     val uiState: StateFlow<UIState<List<DogBreeds>>> = _uiState
 
 
-    fun loadAllBreed() {
+     fun loadAllBreed() {
         viewModelScope.launch(dispatcher.main) {
-            repository.getAllBreed()
-                .flowOn(dispatcher.io)
-                .catch { e ->
-                    _uiState.value = UIState.Error(e.toString())
-                }.collect {
-                    _uiState.value = UIState.Success(it)
-                }
+            if(networkHelper.isInternetConnected()){
+                repository.getAllBreed()
+                    .flowOn(dispatcher.io)
+                    .catch { e ->
+                        _uiState.value = UIState.Error(e.toString())
+                    }.collect {
+                        _uiState.value = UIState.Success(it)
+                    }
+            }else{
+                _uiState.value = UIState.Error("No Internet Connection")
+            }
+
         }
     }
 

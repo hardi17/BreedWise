@@ -4,6 +4,7 @@ import app.cash.turbine.test
 import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.data.repository.AllBreedRepository
 import com.hardi.breedwise.utils.DispatcherProvider
+import com.hardi.breedwise.utils.InternetCheck.NetworkHelper
 import com.hardi.breedwise.utils.TestDispatcherProvider
 import com.hardi.breedwise.utils.UIState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,6 +28,9 @@ class AllBreedViewmodelTest {
     @Mock
     private lateinit var repository: AllBreedRepository
 
+    @Mock
+    private lateinit var networkHelper: NetworkHelper
+
     private lateinit var dispatcher: DispatcherProvider
 
     @Before
@@ -39,10 +43,14 @@ class AllBreedViewmodelTest {
         runTest {
             val dogBreeds = DogBreeds("breed", listOf("subBreed1", "subBreed2"))
             val result = listOf(dogBreeds)
+            doReturn(true)
+                .`when`(networkHelper)
+                .isInternetConnected()
+            doReturn(flowOf(result))
+                .`when`(repository)
+                .getAllBreed()
 
-            doReturn(flowOf(result)).`when`(repository).getAllBreed()
-
-            val viewModel = AllBreedViewmodel(repository, dispatcher)
+            val viewModel = AllBreedViewmodel(repository, dispatcher, networkHelper)
 
             viewModel.loadAllBreed()
 
@@ -59,13 +67,16 @@ class AllBreedViewmodelTest {
     fun get_all_breed_failed_test() {
         runTest {
             val error = IllegalAccessException("Something went wrong")
-            doReturn(flow<List<DogBreeds>>{
+            doReturn(true)
+                .`when`(networkHelper)
+                .isInternetConnected()
+            doReturn(flow<List<DogBreeds>> {
                 throw error
             }).`when`(repository).getAllBreed()
 
-            val viewModel = AllBreedViewmodel(repository, dispatcher)
+            val viewModel = AllBreedViewmodel(repository, dispatcher, networkHelper)
 
-             viewModel.loadAllBreed()
+            viewModel.loadAllBreed()
 
             viewModel.uiState.test {
                 assertEquals(UIState.Error(error.toString()), awaitItem())
