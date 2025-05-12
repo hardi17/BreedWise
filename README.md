@@ -1,5 +1,5 @@
 # BreedWise
-- Information about dog's breed and their subbreed like breed name, sub breed name and their images.
+- Information about dog's breed and their subbreed like breed name, subbreeds name and their images.
 - Using latest tools and Dog CEO api : https://dog.ceo/dog-api
 
 ## Main Features 
@@ -10,6 +10,7 @@
 - Dependency Injection : Hilt
 - Coroutines and kotlin Flow api
 - Retrofit : Networking libraries
+- Database : Room Database
 - Testing : JUnit, Mockito & Turbine
 
 ## Hi there! 👋
