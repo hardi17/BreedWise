@@ -61,6 +61,11 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
 
+    //roomDatabse
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    kapt(libs.room.compiler)
+
     //unit testing
     testImplementation(libs.junit)
     testImplementation(libs.mockito.core)
