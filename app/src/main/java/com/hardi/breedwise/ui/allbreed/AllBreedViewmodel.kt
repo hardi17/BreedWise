@@ -1,6 +1,5 @@
 package com.hardi.breedwise.ui.allbreed
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hardi.breedwise.data.model.DogBreeds
@@ -28,9 +27,9 @@ class AllBreedViewmodel @Inject constructor(
     val uiState: StateFlow<UIState<List<DogBreeds>>> = _uiState
 
 
-     fun loadAllBreed() {
-        viewModelScope.launch(dispatcher.main) {
-            if(networkHelper.isInternetConnected()){
+    fun loadAllBreed() {
+        if (networkHelper.isInternetConnected()) {
+            viewModelScope.launch(dispatcher.main) {
                 repository.getAllBreed()
                     .flowOn(dispatcher.io)
                     .catch { e ->
@@ -38,10 +37,18 @@ class AllBreedViewmodel @Inject constructor(
                     }.collect {
                         _uiState.value = UIState.Success(it)
                     }
-            }else{
-                _uiState.value = UIState.Error("No Internet Connection")
-            }
 
+            }
+        } else {
+            viewModelScope.launch(dispatcher.main) {
+                repository.getAllBreedFromDB()
+                    .flowOn(dispatcher.io)
+                    .catch { e ->
+                        _uiState.value = UIState.Error(e.toString())
+                    }.collect {
+                        _uiState.value = UIState.Success(it)
+                    }
+            }
         }
     }
 
