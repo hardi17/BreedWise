@@ -1,9 +1,8 @@
-package com.hardi.breedwise.ui.allbreed
+package com.hardi.breedwise.ui.subbreeds
 
 import app.cash.turbine.test
 import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.data.repository.SubBreedRepository
-import com.hardi.breedwise.ui.subbreeds.SubBreedViewModel
 import com.hardi.breedwise.utils.DispatcherProvider
 import com.hardi.breedwise.utils.InternetCheck.NetworkHelper
 import com.hardi.breedwise.utils.TestDispatcherProvider
