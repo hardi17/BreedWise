@@ -1,7 +1,8 @@
-package com.hardi.breedwise.ui
+package com.hardi.breedwise.ui.allbreed
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +18,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.hardi.breedwise.R
 import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.databinding.ActivityMainBinding
-import com.hardi.breedwise.ui.allbreed.AllBreedAdapter
-import com.hardi.breedwise.ui.allbreed.AllBreedViewmodel
+import com.hardi.breedwise.ui.subbreeds.SubBreedActivity
+import com.hardi.breedwise.utils.AppConstant.BREED_NAME
 import com.hardi.breedwise.utils.UIState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -61,7 +62,14 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener{
                 (recyclerView.layoutManager as LinearLayoutManager).orientation
             )
         )
+
         recyclerView.adapter = allBreedAdapter
+        allBreedAdapter.onBreedClick = { breedName ->
+            val intent = Intent(this, SubBreedActivity::class.java).apply {
+                putExtra(BREED_NAME, breedName)
+            }
+            startActivity(intent)
+        }
     }
 
     private fun setUpResponse() {

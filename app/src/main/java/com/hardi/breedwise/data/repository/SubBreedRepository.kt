@@ -1,5 +1,6 @@
 package com.hardi.breedwise.data.repository
 
+import android.util.Log
 import com.hardi.breedwise.data.api.ApiService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
