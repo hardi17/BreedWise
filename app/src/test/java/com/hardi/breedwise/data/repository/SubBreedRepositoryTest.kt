@@ -11,6 +11,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
 import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.doThrow
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
@@ -47,6 +48,26 @@ class SubBreedRepositoryTest {
             }
 
             verify(apiService, times(1)).fetchSubBreed(breedName)
+        }
+    }
+
+    @Test
+    fun fetch_sub_breed_failed() {
+        runTest {
+            val breedName = "test"
+            val error = "UnknownHostException"
+
+            doThrow(RuntimeException(error))
+                .`when`(apiService)
+                .fetchSubBreed(breedName)
+
+            repository.getSubBreed(breedName).test{
+                assertEquals(error,awaitError().message)
+                cancelAndIgnoreRemainingEvents()
+            }
+
+            verify(apiService, times(1)).fetchSubBreed(breedName)
+
         }
     }
 }

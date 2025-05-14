@@ -13,6 +13,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.hardi.breedwise.R
 import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.ui.allbreed.AllBreedAdapter
+import com.hardi.breedwise.ui.allbreed.MainActivity
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

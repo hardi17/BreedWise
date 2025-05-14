@@ -1,6 +1,5 @@
 package com.hardi.breedwise.data.api
 
-import androidx.room.Query
 import com.hardi.breedwise.data.model.AllBreedResult
 import com.hardi.breedwise.data.model.SubBreedResult
 import retrofit2.http.GET
@@ -15,6 +14,6 @@ interface ApiService {
 
     @GET("breed/{breedName}/list")
     suspend fun fetchSubBreed(
-        @Path("breedName") breedName : String
+        @Path("breedName") breedName: String
     ): SubBreedResult
 }
