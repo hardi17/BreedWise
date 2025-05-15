@@ -1,8 +1,8 @@
-package com.hardi.breedwise.ui.subbreeds
+package com.hardi.breedwise.ui.breedImages
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hardi.breedwise.data.repository.SubBreedRepository
+import com.hardi.breedwise.data.repository.BreedImagesRepository
 import com.hardi.breedwise.utils.DispatcherProvider
 import com.hardi.breedwise.utils.InternetCheck.NetworkHelper
 import com.hardi.breedwise.utils.UIState
@@ -15,20 +15,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SubBreedViewModel @Inject constructor(
-    private val repository: SubBreedRepository,
+class BreedImagesViewModel @Inject constructor(
+    private val repository: BreedImagesRepository,
     private val dispatcher: DispatcherProvider,
     private val networkHelper: NetworkHelper
-) : ViewModel() {
+): ViewModel(){
 
     private val _uiState = MutableStateFlow<UIState<List<String>>>(UIState.Loading)
     val uiState: StateFlow<UIState<List<String>>> = _uiState
 
 
-    fun loadSubBreed(breedName: String) {
+    fun loadBreedImages(breedName: String) {
         if (networkHelper.isInternetConnected()) {
             viewModelScope.launch(dispatcher.main) {
-                repository.getSubBreed(breedName)
+                repository.getBreedImages(breedName)
                     .flowOn(dispatcher.io)
                     .catch { e ->
                         _uiState.value = UIState.Error(e.toString())
@@ -40,4 +40,5 @@ class SubBreedViewModel @Inject constructor(
             _uiState.value = UIState.Error("something went wrong! Please check network")
         }
     }
+
 }

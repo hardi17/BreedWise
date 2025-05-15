@@ -1,8 +1,10 @@
-package com.hardi.breedwise.ui.subbreeds
+package com.hardi.breedwise.ui.breedImages
 
 import app.cash.turbine.test
 import com.hardi.breedwise.data.model.DogBreeds
-import com.hardi.breedwise.data.repository.SubBreedRepository
+import com.hardi.breedwise.data.repository.BreedImagesRepository
+import com.hardi.breedwise.ui.subbreeds.SubBreedViewModel
+import com.hardi.breedwise.utils.DefaultDispatcherProvider
 import com.hardi.breedwise.utils.DispatcherProvider
 import com.hardi.breedwise.utils.InternetCheck.NetworkHelper
 import com.hardi.breedwise.utils.TestDispatcherProvider
@@ -23,50 +25,50 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class SubBreedViewModelTest {
+class BreedImagesViewModelTest {
 
     @Mock
-    private lateinit var repository: SubBreedRepository
+    private lateinit var repository: BreedImagesRepository
 
     @Mock
     private lateinit var networkHelper: NetworkHelper
 
-    private lateinit var dispatcher: DispatcherProvider
+    private lateinit var viewmodel: BreedImagesViewModel
 
-    private lateinit var viewmodel: SubBreedViewModel
+    private lateinit var dispatcherProvider: DispatcherProvider
+
 
     @Before
-    fun setUp() {
-        dispatcher = TestDispatcherProvider()
+    fun setUp(){
+        dispatcherProvider = TestDispatcherProvider()
     }
 
     @Test
-    fun get_sub_breed_list_success() {
+    fun get_breed_image_success(){
         runTest {
             val breedName = "test"
-            val subBreedList = listOf("abc", "xyz", "pqr")
+            val imgList = listOf("url1", "url2", "url3")
 
             doReturn(true)
                 .`when`(networkHelper)
                 .isInternetConnected()
-            doReturn(flowOf(subBreedList))
+            doReturn(flowOf(imgList))
                 .`when`(repository)
-                .getSubBreed(breedName)
+                .getBreedImages(breedName)
 
-            viewmodel = SubBreedViewModel(repository, dispatcher, networkHelper)
-            viewmodel.loadSubBreed(breedName)
+            viewmodel = BreedImagesViewModel(repository, dispatcherProvider, networkHelper)
+            viewmodel.loadBreedImages(breedName)
             viewmodel.uiState.test {
-                assertEquals(UIState.Success(subBreedList), awaitItem())
+                assertEquals(UIState.Success(imgList), awaitItem())
                 cancelAndIgnoreRemainingEvents()
             }
 
-            verify(repository, times(1)).getSubBreed(breedName)
+            verify(repository, times(1)).getBreedImages(breedName)
         }
-
     }
 
     @Test
-    fun get_sub_breed_failed_test() {
+    fun get_breed_image_failed(){
         runTest {
             val breedName = "test"
             val error = IllegalAccessException("Something went wrong")
@@ -75,17 +77,17 @@ class SubBreedViewModelTest {
                 .isInternetConnected()
             doReturn(flow<List<DogBreeds>> {
                 throw error
-            }).`when`(repository).getSubBreed(breedName)
+            }).`when`(repository).getBreedImages(breedName)
 
-            viewmodel = SubBreedViewModel(repository, dispatcher, networkHelper)
-            viewmodel.loadSubBreed(breedName)
+            viewmodel = BreedImagesViewModel(repository, dispatcherProvider, networkHelper)
+            viewmodel.loadBreedImages(breedName)
             viewmodel.uiState.test {
                 assertEquals(UIState.Error(error.toString()), awaitItem())
                 cancelAndIgnoreRemainingEvents()
             }
 
 
-            verify(repository, times(1)).getSubBreed(breedName)
+            verify(repository, times(1)).getBreedImages(breedName)
         }
     }
 }
