@@ -99,5 +99,7 @@ class BreedImagesActivity : AppCompatActivity() {
 
         breedName = intent.getStringExtra(BREED_NAME).toString()
         subBreedName = intent.getStringExtra(SUB_BREED_NAME).toString()
+
+        binding.tvSubBreedName.text= subBreedName
     }
 }
