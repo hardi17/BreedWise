@@ -13,6 +13,13 @@
 - Database : Room Database
 - Testing : JUnit, Mockito & Turbine
 
+## Screens
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/23aa2a8b-65bc-41b0-97bd-183f83f9be17" width="30%" />
+  <img src="https://github.com/user-attachments/assets/c37ed2eb-afd2-49ff-ab0b-7b27d8133312" width="30%" />
+  <img src="https://github.com/user-attachments/assets/7e32a9b1-1004-4ed1-98cf-5940efa44780" width="30%" />
+</p>
+
 ## Hi there! 👋
 I’m Hardi Rachh, an experienced Android developer who loves exploring new frameworks and tools.
 Always open to connect and collaborate, feel free to reach out to me on: 😊
