@@ -11,9 +11,9 @@ class BreedImagesRepository @Inject constructor(
     private val apiService: ApiService
 ) {
 
-    fun getBreedImages(breedName: String): Flow<List<String>> {
+    fun getBreedImages(breedName: String, subBreedName: String): Flow<List<String>> {
         return flow {
-            val response = apiService.fetchBreedImages(breedName)
+            val response = apiService.fetchBreedImages(breedName, subBreedName)
             val imgList = response.message
             emit(imgList!!)
         }

@@ -25,10 +25,10 @@ class BreedImagesViewModel @Inject constructor(
     val uiState: StateFlow<UIState<List<String>>> = _uiState
 
 
-    fun loadBreedImages(breedName: String) {
+    fun loadBreedImages(breedName: String, subbreedName: String) {
         if (networkHelper.isInternetConnected()) {
             viewModelScope.launch(dispatcher.main) {
-                repository.getBreedImages(breedName)
+                repository.getBreedImages(breedName, subbreedName)
                     .flowOn(dispatcher.io)
                     .catch { e ->
                         _uiState.value = UIState.Error(e.toString())

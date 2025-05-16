@@ -47,6 +47,7 @@ class BreedImagesViewModelTest {
     fun get_breed_image_success(){
         runTest {
             val breedName = "test"
+            val subbreedName = "test"
             val imgList = listOf("url1", "url2", "url3")
 
             doReturn(true)
@@ -54,16 +55,16 @@ class BreedImagesViewModelTest {
                 .isInternetConnected()
             doReturn(flowOf(imgList))
                 .`when`(repository)
-                .getBreedImages(breedName)
+                .getBreedImages(breedName, subbreedName)
 
             viewmodel = BreedImagesViewModel(repository, dispatcherProvider, networkHelper)
-            viewmodel.loadBreedImages(breedName)
+            viewmodel.loadBreedImages(breedName, subbreedName)
             viewmodel.uiState.test {
                 assertEquals(UIState.Success(imgList), awaitItem())
                 cancelAndIgnoreRemainingEvents()
             }
 
-            verify(repository, times(1)).getBreedImages(breedName)
+            verify(repository, times(1)).getBreedImages(breedName, subbreedName)
         }
     }
 
@@ -71,23 +72,24 @@ class BreedImagesViewModelTest {
     fun get_breed_image_failed(){
         runTest {
             val breedName = "test"
+            val subbreedName = "test"
             val error = IllegalAccessException("Something went wrong")
             doReturn(true)
                 .`when`(networkHelper)
                 .isInternetConnected()
             doReturn(flow<List<DogBreeds>> {
                 throw error
-            }).`when`(repository).getBreedImages(breedName)
+            }).`when`(repository).getBreedImages(breedName, subbreedName)
 
             viewmodel = BreedImagesViewModel(repository, dispatcherProvider, networkHelper)
-            viewmodel.loadBreedImages(breedName)
+            viewmodel.loadBreedImages(breedName, subbreedName)
             viewmodel.uiState.test {
                 assertEquals(UIState.Error(error.toString()), awaitItem())
                 cancelAndIgnoreRemainingEvents()
             }
 
 
-            verify(repository, times(1)).getBreedImages(breedName)
+            verify(repository, times(1)).getBreedImages(breedName, subbreedName)
         }
     }
 }

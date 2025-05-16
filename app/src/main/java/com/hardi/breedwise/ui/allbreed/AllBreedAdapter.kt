@@ -1,13 +1,13 @@
 package com.hardi.breedwise.ui.allbreed
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hardi.breedwise.data.model.DogBreeds
 import com.hardi.breedwise.databinding.LayoutSubBreedNameBinding
+import com.hardi.breedwise.utils.DogBreedDiffCallback
 import com.hardi.breedwise.utils.OnBreedClick
 
 class AllBreedAdapter(
@@ -57,26 +57,5 @@ class AllBreedAdapter(
     }
 }
 
-class DogBreedDiffCallback(
-    private val oldList: List<DogBreeds>,
-    private val newList: List<DogBreeds>
-) :
-    DiffUtil.Callback() {
-    override fun getOldListSize(): Int {
-        return oldList.size
-    }
 
-    override fun getNewListSize(): Int {
-        return newList.size
-    }
-
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition].breed == newList[newItemPosition].breed
-    }
-
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldList[oldItemPosition] == newList[newItemPosition]
-    }
-
-}
 

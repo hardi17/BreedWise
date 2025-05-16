@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BreedWise</string>
+    <string name="sub_breed_img">SubBreedImage</string>
 </resources>

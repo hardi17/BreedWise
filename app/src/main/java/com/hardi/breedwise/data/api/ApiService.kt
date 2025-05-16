@@ -18,8 +18,9 @@ interface ApiService {
         @Path("breedName") breedName: String
     ): SubBreedResult
 
-    @GET("breed/{breedName}/images")
+    @GET("breed/{breed}/{subBreed}/images")
     suspend fun fetchBreedImages(
-        @Path("breedName") breedName: String
+        @Path("breed") breed: String,
+        @Path("subBreed") subBreed: String
     ): BreedImageResult
 }

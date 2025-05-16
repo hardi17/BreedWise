@@ -17,6 +17,9 @@
         android:theme="@style/Theme.BreedWise"
         tools:targetApi="31">
         <activity
+            android:name=".ui.breedImages.BreedImagesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.subbreeds.SubBreedActivity"
             android:exported="false" />
         <activity

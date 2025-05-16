@@ -34,38 +34,42 @@ class BreedImagesRepositoryTest {
     @Test
     fun get_breed_image_success(){
         runTest {
-            val breedName = "mainBreed/subBreed"
+            val breedName = "mainBreed"
+            val subbreedName = "subBreed"
             val status = "success"
             val imgList = listOf("url1","url2", "url3")
             val response = BreedImageResult(imgList, status)
 
             doReturn(response)
                 .`when`(apiService)
-                .fetchBreedImages(breedName)
+                .fetchBreedImages(breedName,subbreedName)
 
-            repository.getBreedImages(breedName).test {
+            repository.getBreedImages(breedName, subbreedName).test {
                 assertEquals(imgList, awaitItem())
                 cancelAndIgnoreRemainingEvents()
             }
+
+            verify(apiService, times(1)).fetchBreedImages(breedName, subbreedName)
         }
     }
 
     @Test
     fun get_breed_image_failed(){
         runTest {
-            val breedName = "mainBreed/subBreed"
+            val breedName = "mainBreed"
+            val subbreedName = "subBreed"
             val error = "UnknownHostException"
 
             doThrow(RuntimeException(error))
                 .`when`(apiService)
-                .fetchBreedImages(breedName)
+                .fetchBreedImages(breedName,subbreedName)
 
-            repository.getBreedImages(breedName).test{
+            repository.getBreedImages(breedName, subbreedName).test{
                 assertEquals(error,awaitError().message)
                 cancelAndIgnoreRemainingEvents()
             }
 
-            verify(apiService, times(1)).fetchBreedImages(breedName)
+            verify(apiService, times(1)).fetchBreedImages(breedName, subbreedName)
         }
     }
 }

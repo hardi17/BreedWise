@@ -1,6 +1,7 @@
 package com.hardi.breedwise.di.module
 
 import com.hardi.breedwise.ui.allbreed.AllBreedAdapter
+import com.hardi.breedwise.ui.breedImages.BreedImageAdapter
 import com.hardi.breedwise.ui.subbreeds.SubBreedAdapter
 import dagger.Module
 import dagger.Provides
@@ -19,5 +20,9 @@ class ActivityModule {
     @ActivityScoped
     @Provides
     fun provideSubBreedAdapter() = SubBreedAdapter(ArrayList())
+
+    @ActivityScoped
+    @Provides
+    fun provideBreedImageAdapter() = BreedImageAdapter(ArrayList())
 
 }
