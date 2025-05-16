@@ -3,4 +3,5 @@
     <string name="sub_breed_img">SubBreedImage</string>
     <string name="sub_breed_name">SubBreedName</string>
     <string name="error_msg">Error Message</string>
+    <string name="breed_name">BreedName</string>
 </resources>

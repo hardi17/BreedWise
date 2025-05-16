@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
+            android:contentDescription="@string/error_msg"
             android:text="Hello World!"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
