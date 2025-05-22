@@ -10,16 +10,16 @@
 - Dependency Injection : Hilt
 - Coroutines and kotlin Flow api
 - Retrofit : Networking libraries
+- Image loading : Coil
 - Database : Room Database
 - Testing : JUnit, Mockito & Turbine
 
 ## Screens
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/23aa2a8b-65bc-41b0-97bd-183f83f9be17" width="30%" />
-  <img src="https://github.com/user-attachments/assets/c37ed2eb-afd2-49ff-ab0b-7b27d8133312" width="30%" />
-  <img src="https://github.com/user-attachments/assets/7e32a9b1-1004-4ed1-98cf-5940efa44780" width="30%" />
+  <img src="https://github.com/user-attachments/assets/8142d2f3-531b-4002-9133-a3a9a93e83f5" width="30%" />
+  <img src="https://github.com/user-attachments/assets/484eb99c-7a29-4615-a79c-f232146ae839" width="30%" />
+  <img src="https://github.com/user-attachments/assets/131eba82-dd5c-4334-b6a6-e732409b51bf" width="30%" />
 </p>
-
 ## Hi there! 👋
 I’m Hardi Rachh, an experienced Android developer who loves exploring new frameworks and tools.
 Always open to connect and collaborate, feel free to reach out to me on: 😊
