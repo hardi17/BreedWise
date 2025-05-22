@@ -24,6 +24,15 @@ class SubBreedViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UIState<List<String>>>(UIState.Loading)
     val uiState: StateFlow<UIState<List<String>>> = _uiState
 
+    private val _breedName = MutableStateFlow("")
+    val breedName: StateFlow<String> = _breedName
+
+    fun setBreedName(name: String) {
+        if (_breedName.value != name) {
+            _breedName.value = name
+            loadSubBreed(name)
+        }
+    }
 
     fun loadSubBreed(breedName: String) {
         if (networkHelper.isInternetConnected()) {
@@ -36,7 +45,7 @@ class SubBreedViewModel @Inject constructor(
                         _uiState.value = UIState.Success(it)
                     }
             }
-        }else{
+        } else {
             _uiState.value = UIState.Error("something went wrong! Please check network")
         }
     }

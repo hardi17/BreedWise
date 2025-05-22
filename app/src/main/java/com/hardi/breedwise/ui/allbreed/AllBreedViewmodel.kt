@@ -26,6 +26,9 @@ class AllBreedViewmodel @Inject constructor(
     private val _uiState = MutableStateFlow<UIState<List<DogBreeds>>>(UIState.Loading)
     val uiState: StateFlow<UIState<List<DogBreeds>>> = _uiState
 
+    init{
+        loadAllBreed()
+    }
 
     fun loadAllBreed() {
         if (networkHelper.isInternetConnected()) {

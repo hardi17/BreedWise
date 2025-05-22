@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.compose)
 }
 
 android {
@@ -37,6 +38,7 @@ android {
     }
     buildFeatures{
         viewBinding = true
+        compose = true
     }
 }
 
@@ -49,8 +51,20 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
+    //jetpack compose
+     implementation(libs.androidx.activity.compose)
+     implementation(platform(libs.androidx.compose.bom))
+     implementation(libs.androidx.ui)
+     implementation(libs.androidx.ui.graphics)
+     implementation(libs.androidx.ui.tooling.preview)
+     implementation(libs.androidx.material3)
+     implementation(libs.androidx.lifecycle.viewmodel.compose)
+     implementation(libs.androidx.hilt.navigation.compose)
+     implementation(libs.androidx.navigation.compose)
+     implementation(libs.androidx.lifecycle.runtime.compose)
+
     //image loading
-    implementation(libs.github.glide)
+    implementation(libs.coil.kt.coil.compose)
 
     //refreshlayout
     implementation(libs.swiperefreshlayout)
@@ -58,6 +72,10 @@ dependencies {
     //hilt
     implementation(libs.hilt.android)
     implementation(libs.androidx.hilt.common)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
     kapt(libs.hilt.compiler)
 
     //retrofit

@@ -24,6 +24,19 @@ class BreedImagesViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<UIState<List<String>>>(UIState.Loading)
     val uiState: StateFlow<UIState<List<String>>> = _uiState
 
+    private val _breedName = MutableStateFlow("")
+    val breedName: StateFlow<String> = _breedName
+
+    private val _subBreedName = MutableStateFlow("")
+    val subBreedName: StateFlow<String> = _subBreedName
+
+    fun setSubBreedName(name:  String, subName: String){
+        if(_breedName.value != name && _subBreedName.value != subName){
+            _breedName.value = name
+            _subBreedName.value = subName
+            loadBreedImages(name, subName)
+        }
+    }
 
     fun loadBreedImages(breedName: String, subbreedName: String) {
         if (networkHelper.isInternetConnected()) {

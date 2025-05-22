@@ -17,13 +17,7 @@
         android:theme="@style/Theme.BreedWise"
         tools:targetApi="31">
         <activity
-            android:name=".ui.breedImages.BreedImagesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.subbreeds.SubBreedActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.allbreed.MainActivity"
+            android:name=".ui.base.MainBreedScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
