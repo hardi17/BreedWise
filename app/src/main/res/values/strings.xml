@@ -8,4 +8,5 @@
     <string name="title_activity_all_breed_screen">AllBreedScreen</string>
     <string name="title_activity_main_breed_screen">MainBreedScreen</string>
     <string name="loading">Loading</string>
+    <string name="no_data_found">No Result Found</string>
 </resources>
