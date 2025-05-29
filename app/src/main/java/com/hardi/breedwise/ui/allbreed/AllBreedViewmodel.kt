@@ -26,8 +26,27 @@ class AllBreedViewmodel @Inject constructor(
     private val _uiState = MutableStateFlow<UIState<List<DogBreeds>>>(UIState.Loading)
     val uiState: StateFlow<UIState<List<DogBreeds>>> = _uiState
 
-    init{
+    private val _breedName = MutableStateFlow("")
+    val breedName: StateFlow<String> = _breedName
+
+    private val _filterBreedList = MutableStateFlow<List<DogBreeds>>(emptyList())
+    val filterBreedList: StateFlow<List<DogBreeds>> = _filterBreedList
+
+    init {
         loadAllBreed()
+    }
+
+    fun filterBreedListOnSearch(query: String = _breedName.value) {
+        _breedName.value = query
+
+        val currentBreedList = (uiState.value as? UIState.Success)?.data ?: emptyList()
+
+        _filterBreedList.value =
+            if (query.isNotEmpty()) {
+            currentBreedList.filter { it.breed.startsWith(query, ignoreCase = true) }
+        } else {
+            currentBreedList
+        }
     }
 
     fun loadAllBreed() {
@@ -39,6 +58,7 @@ class AllBreedViewmodel @Inject constructor(
                         _uiState.value = UIState.Error(e.toString())
                     }.collect {
                         _uiState.value = UIState.Success(it)
+                        _filterBreedList.value = it
                     }
 
             }

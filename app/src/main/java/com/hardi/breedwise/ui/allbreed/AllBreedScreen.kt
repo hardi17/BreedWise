@@ -12,9 +12,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -36,8 +33,8 @@ fun AllBreedScreen(
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    var searchText by remember { mutableStateOf("") }
+    val query by viewModel.breedName.collectAsStateWithLifecycle()
+    val filterList by viewModel.filterBreedList.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -49,15 +46,15 @@ fun AllBreedScreen(
                 modifier = Modifier.padding(paddingValues)
             ) {
                 OutlinedTextField(
-                    value = searchText,
-                    onValueChange = { searchText = it },
+                    value = query,
+                    onValueChange = { viewModel.filterBreedListOnSearch(it) },
                     label = { Text(text = "Search Breed") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp)
                 )
                 AllBreedContent(
-                    searchBreed = searchText,
+                    filterList = filterList,
                     uiState = uiState,
                     onBreedClick = onBreedClick
                 )
@@ -95,16 +92,12 @@ fun AllBreedItem(breed: DogBreeds, onBreedClick: (name: String) -> Unit) {
 
 @Composable
 fun AllBreedContent(
-    searchBreed: String,
+    filterList: List<DogBreeds>,
     uiState: UIState<List<DogBreeds>>,
     onBreedClick: (name: String) -> Unit
 ) {
     when (uiState) {
         is UIState.Success -> {
-            val filterList = uiState.data.filter {
-                it.breed.startsWith(searchBreed.trim(), ignoreCase = true)
-            }
-
             if (filterList.isNotEmpty()) {
                 AllBreedList(filterList, onBreedClick)
             } else {
@@ -112,7 +105,6 @@ fun AllBreedContent(
             }
 
         }
-
         is UIState.Loading -> {
             ShowLoading()
         }
