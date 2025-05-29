@@ -16,9 +16,10 @@
 
 ## Screens
 <p float="left">
-  <img src="https://github.com/user-attachments/assets/8142d2f3-531b-4002-9133-a3a9a93e83f5" width="30%" />
-  <img src="https://github.com/user-attachments/assets/484eb99c-7a29-4615-a79c-f232146ae839" width="30%" />
-  <img src="https://github.com/user-attachments/assets/131eba82-dd5c-4334-b6a6-e732409b51bf" width="30%" />
+  <img src="https://github.com/user-attachments/assets/c19487bb-bae7-495d-b8df-83c2920072c5" width="20%" />
+  <img src="https://github.com/user-attachments/assets/46f4e47d-6cfd-46c0-9212-6a3866259860" width="20%" />
+  <img src="https://github.com/user-attachments/assets/484eb99c-7a29-4615-a79c-f232146ae839" width="20%" />
+  <img src="https://github.com/user-attachments/assets/131eba82-dd5c-4334-b6a6-e732409b51bf" width="20%" />
 </p>
 
 ## Hi there! 👋
