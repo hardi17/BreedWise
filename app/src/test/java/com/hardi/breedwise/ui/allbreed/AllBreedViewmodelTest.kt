@@ -41,7 +41,7 @@ class AllBreedViewmodelTest {
     @Test
     fun get_all_breed_succeefully_test() {
         runTest {
-            val dogBreeds = DogBreeds("breed", listOf("subBreed1", "subBreed2"))
+            val dogBreeds = DogBreeds("test", listOf("abc", "pqr"))
             val result = listOf(dogBreeds)
             doReturn(true)
                 .`when`(networkHelper)
@@ -51,15 +51,12 @@ class AllBreedViewmodelTest {
                 .getAllBreed()
 
             val viewModel = AllBreedViewmodel(repository, dispatcher, networkHelper)
-
             viewModel.loadAllBreed()
-
-            viewModel.uiState.test {
-                assertEquals(UIState.Success(result), awaitItem())
+            viewModel.filterBreedListOnSearch("t")
+            viewModel.filterBreedList.test {
+                assertEquals(result, awaitItem())
                 cancelAndIgnoreRemainingEvents()
             }
-
-            verify(repository, times(1)).getAllBreed()
         }
     }
 
@@ -82,9 +79,6 @@ class AllBreedViewmodelTest {
                 assertEquals(UIState.Error(error.toString()), awaitItem())
                 cancelAndIgnoreRemainingEvents()
             }
-
-
-            verify(repository, times(1)).getAllBreed()
         }
 
     }

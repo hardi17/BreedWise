@@ -70,6 +70,7 @@ class AllBreedViewmodel @Inject constructor(
                         _uiState.value = UIState.Error(e.toString())
                     }.collect {
                         _uiState.value = UIState.Success(it)
+                        _filterBreedList.value = it
                     }
             }
         }

@@ -98,10 +98,12 @@ fun AllBreedContent(
 ) {
     when (uiState) {
         is UIState.Success -> {
-            if (filterList.isNotEmpty()) {
-                AllBreedList(filterList, onBreedClick)
-            } else {
-                ShowError(stringResource(id = R.string.no_data_found))
+            if(uiState.data.isNotEmpty()){
+                if (filterList.isNotEmpty()) {
+                    AllBreedList(filterList, onBreedClick)
+                } else {
+                    ShowError(stringResource(id = R.string.no_data_found))
+                }
             }
 
         }
